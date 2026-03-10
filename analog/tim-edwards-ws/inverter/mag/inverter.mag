@@ -1,0 +1,54 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1773102880
+<< metal1 >>
+rect 1200 580 1400 800
+rect 1010 380 1608 580
+rect 1496 368 1608 380
+rect 1552 362 1608 368
+rect 712 254 1376 330
+rect 1496 271 1608 362
+rect 712 252 1011 254
+rect 712 -28 800 252
+rect 1434 212 1608 271
+rect 1133 174 1608 212
+rect 1133 164 1192 174
+rect 1242 10 1858 60
+rect 712 -84 1452 -28
+rect 200 -200 586 -198
+rect 712 -200 802 -84
+rect 200 -398 802 -200
+rect 704 -458 802 -398
+rect 1742 -200 1858 10
+rect 1742 -400 2404 -200
+rect 704 -538 1358 -458
+rect 704 -540 928 -538
+rect 704 -888 800 -540
+rect 1742 -576 1854 -400
+rect 1140 -682 1854 -576
+rect 1241 -776 1626 -775
+rect 1241 -853 1682 -776
+rect 704 -966 1520 -888
+rect 1620 -1008 1682 -853
+rect 1054 -1181 1682 -1008
+rect 1054 -1204 1680 -1181
+rect 1200 -1400 1400 -1204
+use sky130_fd_pr__nfet_01v8_WEMCCS  XM1
+timestamp 1773084659
+transform 1 0 1311 0 1 -716
+box -311 -360 311 360
+use sky130_fd_pr__pfet_01v8_2VJ58K  XM2 ~/VLSI-Projects/analog/tim-edwards-ws/inverter/mag
+timestamp 1773084659
+transform 1 0 1311 0 1 119
+box -311 -319 311 319
+<< labels >>
+flabel metal1 2204 -400 2404 -200 0 FreeSans 256 0 0 0 out
+port 2 nsew
+flabel metal1 200 -398 400 -198 0 FreeSans 256 0 0 0 in
+port 1 nsew
+flabel metal1 1200 600 1400 800 0 FreeSans 256 0 0 0 gnd
+port 3 nsew
+flabel metal1 1200 -1400 1400 -1200 0 FreeSans 256 0 0 0 Vdd
+port 0 nsew
+<< end >>

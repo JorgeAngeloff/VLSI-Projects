@@ -1,0 +1,8 @@
+# Primero definimos la ruta del PDK si no está en las variables de entorno
+set PDK_ROOT /usr/local/share/pdk
+
+# Luego traemos toda la configuración oficial
+source ${PDK_ROOT}/sky130A/libs.tech/magic/sky130A.magicrc
+
+# Opcional: puedes añadir tus propios comandos aquí
+puts stdout "--- ¡Magia de Sky130 cargada con éxito! ;-) ---"
