@@ -17,9 +17,9 @@ N 0 -30 50 -30 {lab=gnd}
 N 50 -60 50 -30 {lab=gnd}
 N -0 -60 50 -60 {lab=gnd}
 C {sky130_fd_pr/nfet_01v8.sym} -20 -60 0 0 {name=M1
-W=4.5
-L=0.18
-nf=3
+W=1
+L=0.5
+nf=1
 mult=1
 
 sa=0 sb=0 sd=0
@@ -31,10 +31,10 @@ C {opin.sym} 50 -110 0 0 {name=p2 lab=out}
 C {iopin.sym} 0 0 1 0 {name=p3 lab=gnd}
 C {iopin.sym} 0 -220 3 0 {name=p4 lab=Vdd}
 C {sky130_fd_pr/pfet3_01v8.sym} -20 -150 0 0 {name=M2
-W=3
-L=0.18
+W=5
+L=0.5
 body=VDD
-nf=3
+nf=1
 mult=1
 
 sa=0 sb=0 sd=0

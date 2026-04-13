@@ -1,0 +1,101 @@
+name=simulation only_toplevel=false 
+value="
+
+* Parameters
+.param vds = 1.8
+.param vgs = 0.9
+.options TEMPS = 27.0
+
+* Models
+.lib /usr/local/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+
+* Data to save
+.save all
++ @M.XM1.msky130_fd_pr__nfet_01v8[id]
++ @M.XM1.msky130_fd_pr__nfet_01v8[gm]
++ @M.XM1.msky130_fd_pr__nfet_01v8[vth]
++ @M.XM1.msky130_fd_pr__nfet_01v8[vds]
++ @M.XM1.msky130_fd_pr__nfet_01v8[vdsat]
++ @M.XM1.msky130_fd_pr__nfet_01v8[vgs]
++ @M.XM1.msky130_fd_pr__nfet_01v8[cgg]
++ @M.XM2.msky130_fd_pr__nfet_01v8[id]
++ @M.XM2.msky130_fd_pr__nfet_01v8[gm]
++ @M.XM2.msky130_fd_pr__nfet_01v8[vth]
++ @M.XM2.msky130_fd_pr__nfet_01v8[vds]
++ @M.XM2.msky130_fd_pr__nfet_01v8[vdsat]
++ @M.XM2.msky130_fd_pr__nfet_01v8[vgs]
++ @M.XM3.msky130_fd_pr__nfet_01v8[id]
++ @M.XM3.msky130_fd_pr__nfet_01v8[gm]
++ @M.XM3.msky130_fd_pr__nfet_01v8[vth]
++ @M.XM3.msky130_fd_pr__nfet_01v8[vds]
++ @M.XM3.msky130_fd_pr__nfet_01v8[vdsat]
++ @M.XM3.msky130_fd_pr__nfet_01v8[vgs]
+
+
+* Simulation
+.control
+  dc VDS 0 1.8 0.01 VGS 0 1.8 0.3
+  setplot dc1
+  plot @M.XM1.msky130_fd_pr__nfet_01v8[id] @M.XM3.msky130_fd_pr__nfet_01v8[id] ylabel Id xlabel Vds title 'Id vs Vds vs Vgs'
+  set filetype = ascii
+  write ./tp1_1_dc1.raw
+
+  reset
+  dc VGS 0 1.8 0.01
+   setplot dc2
+   plot @M.XM1.msky130_fd_pr__nfet_01v8[id] @M.XM2.msky130_fd_pr__nfet_01v8[id] @M.XM3.msky130_fd_pr__nfet_01v8[id] ylabel Id xlabel Vgs
+   plot @M.XM1.msky130_fd_pr__nfet_01v8[id] @M.XM2.msky130_fd_pr__nfet_01v8[id] @M.XM3.msky130_fd_pr__nfet_01v8[id] ylog ylabel log(Id) xlabel Vgs
+   plot @M.XM1.msky130_fd_pr__nfet_01v8[gm]/@M.XM1.msky130_fd_pr__nfet_01v8[id] vs @M.XM1.msky130_fd_pr__nfet_01v8[id] xlog ylabel gm/Id xlabel Id
+   plot @M.XM1.msky130_fd_pr__nfet_01v8[gm]/@M.XM1.msky130_fd_pr__nfet_01v8[id] vs @M.XM1.msky130_fd_pr__nfet_01v8[vgs] ylabel gm/Id xlabel Vgs
+   set filetype = ascii
+  write tp1_1_dc2.raw
+
+  alterparam vds = 0
+  reset
+  dc VGS -1.8 1.8 0.01
+   setplot dc3
+   plot @M.XM1.msky130_fd_pr__nfet_01v8[cgg] ylabel Cgg xlabel Vgs
+   set filetype = ascii
+  write tp1_1_dc3.raw 
+
+  reset
+  unset filetype
+  op
+  save all
+  write tp1_1.raw 
+
+.endc
+
+.end
+"
+*********************************************************************************************************
+
+* Barrido de 1.8V a 0 con pasos de -0.01V
+.dc V1 1.8 0 -0.01
+
+* Simulation
+.control
+ 	run
+ 	plot v(out)
+.endc
+
+* Barrido de 0 a 1.8V con pasos de 0.01V
+.dc V1 0 1.8 0.01
+
+* Simulation
+.control
+ 	run
+ 	plot v(out)
+.endc
+
+
+
+.control
+ * Simulación temporal para ver el retardo y la conmutación
+
+  tran 0.1m 25m
+
+  * Graficamos la Salida vs la Entrada para ver el lazo de histéresis
+
+  plot tout out in title 'Lazo de Histéresis del Schmidt Trigger'
+.endc
